@@ -6,24 +6,18 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 import { ShortenRequest, shortenSchema } from "@/lib/validations/shorten";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/Form";
+import { Form, FormControl, FormField, FormMessage } from "./ui/Form";
 import { Input } from "./ui/Input";
 import { Button } from "./ui/Button";
 import { useMutation } from "@tanstack/react-query";
+import { useAliasStore } from "@/store/alias";
 
 interface ShortenFormProps {
   csrfToken: string;
 }
 
 const ShortenForm = ({ csrfToken }: ShortenFormProps) => {
+  const { addAlias } = useAliasStore();
   const form = useForm<ShortenRequest>({
     resolver: zodResolver(shortenSchema),
     defaultValues: {
@@ -32,17 +26,22 @@ const ShortenForm = ({ csrfToken }: ShortenFormProps) => {
   });
 
   const handleSubmit = (values: ShortenRequest) => {
-    console.log(values);
     createShortLink(values);
   };
 
-  const { mutate: createShortLink } = useMutation({
+  const { mutate: createShortLink, isLoading: isShortening } = useMutation({
     mutationFn: async (payload: ShortenRequest) => {
-      axios.post("/api/shorten", payload, {
+      const { data } = await axios.post("/api/shorten", payload, {
         headers: {
           "X-CSRF-Token": csrfToken,
         },
       });
+
+      return data;
+    },
+    onSuccess(data: { alias: string }) {
+      form.reset();
+      addAlias(data.alias);
     },
   });
 
@@ -68,7 +67,9 @@ const ShortenForm = ({ csrfToken }: ShortenFormProps) => {
             </div>
           )}
         />
-        <Button type="submit">Shorten!</Button>
+        <Button disabled={isShortening} type="submit">
+          Shorten!
+        </Button>
       </form>
     </Form>
   );

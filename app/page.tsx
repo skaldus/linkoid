@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Github } from "lucide-react";
 import { headers } from "next/headers";
+import AliasList from "@/components/AliasList";
 
 export default function Home() {
   const csrfToken = headers().get("x-csrf-token") || "";
@@ -19,6 +20,7 @@ export default function Home() {
           short links with us today!
         </p>
         <ShortenForm csrfToken={csrfToken} />
+        <AliasList />
         <div className="flex w-full justify-center">
           <Link href="#">
             <Github className="text-muted-foreground hover:text-black transition-all duration-1000" />
