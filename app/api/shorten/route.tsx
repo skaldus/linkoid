@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
+import { customAlphabet } from "nanoid";
 
 export async function POST(req: Request) {
-  return NextResponse.json({url: '/ffaR44'});
+  const nanoid = customAlphabet(
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+    7
+  );
+
+  return NextResponse.json({ url: nanoid() });
 }
