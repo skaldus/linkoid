@@ -49,7 +49,7 @@ const ShortenForm = ({ csrfToken }: ShortenFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="flex items-baseline gap-2 mb-6"
+        className="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-6"
       >
         <FormField
           control={form.control}

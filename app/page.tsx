@@ -9,7 +9,7 @@ export default function Home() {
   const csrfToken = headers().get("x-csrf-token") || "";
 
   return (
-    <main className="container flex h-screen flex-col items-center justify-between p-24">
+    <main className="container flex h-screen flex-col items-center justify-between p-8 md:p-24">
       <div className="flex max-w-md justify-center flex-col">
         <div className="relative max-w-full h-64 mb-8">
           <Image src="./logo.svg" alt="Logo" fill />
