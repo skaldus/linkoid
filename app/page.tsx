@@ -22,7 +22,7 @@ export default function Home() {
         <ShortenForm csrfToken={csrfToken} />
         <AliasList />
         <div className="flex w-full justify-center">
-          <Link href="#">
+          <Link href="https://github.com/skaldus/linkoid">
             <Github className="text-muted-foreground hover:text-black transition-all duration-1000" />
           </Link>
         </div>
