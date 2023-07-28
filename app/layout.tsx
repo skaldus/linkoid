@@ -11,6 +11,20 @@ export const metadata: Metadata = {
   title: "Linkoid.eu - link shortener",
   description:
     "Linkoid is free, fast and secure link shortening service. Start transforming your long links into simple and clean short links with us today!",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://linkoid.eu/",
+    title: "Linkoid - URL shortener",
+    siteName: "Linkoid",
+    description:
+      "Linkoid is free, fast and secure link shortening service. Start transforming your long links into simple and clean short links with us today!",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
