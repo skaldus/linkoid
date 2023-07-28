@@ -2,8 +2,11 @@ import ShortenForm from "@/components/ShortenForm";
 import Image from "next/image";
 import Link from "next/link";
 import { Github } from "lucide-react";
+import { headers } from "next/headers";
 
 export default function Home() {
+  const csrfToken = headers().get("x-csrf-token") || "";
+
   return (
     <main className="container flex h-screen flex-col items-center justify-between p-24">
       <div className="flex max-w-md justify-center flex-col">
@@ -15,7 +18,7 @@ export default function Home() {
           service. Start transforming your long links into simple and clean
           short links with us today!
         </p>
-        <ShortenForm />
+        <ShortenForm csrfToken={csrfToken} />
         <div className="flex w-full justify-center">
           <Link href="#">
             <Github className="text-muted-foreground hover:text-black transition-all duration-1000" />
