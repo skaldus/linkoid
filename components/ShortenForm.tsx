@@ -11,6 +11,7 @@ import { Input } from "./ui/Input";
 import { Button } from "./ui/Button";
 import { useMutation } from "@tanstack/react-query";
 import { useAliasStore } from "@/store/alias";
+import { useToast } from "@/hooks/useToast";
 
 interface ShortenFormProps {
   csrfToken: string;
@@ -18,6 +19,8 @@ interface ShortenFormProps {
 
 const ShortenForm = ({ csrfToken }: ShortenFormProps) => {
   const { addAlias } = useAliasStore();
+  const { toast } = useToast();
+
   const form = useForm<ShortenRequest>({
     resolver: zodResolver(shortenSchema),
     defaultValues: {
@@ -31,7 +34,7 @@ const ShortenForm = ({ csrfToken }: ShortenFormProps) => {
 
   const { mutate: createShortLink, isLoading: isShortening } = useMutation({
     mutationFn: async (payload: ShortenRequest) => {
-      const { data } = await axios.post("/api/shorten", payload, {
+      const { data } = await axios.post("/api/shortens", payload, {
         headers: {
           "X-CSRF-Token": csrfToken,
         },
@@ -42,6 +45,14 @@ const ShortenForm = ({ csrfToken }: ShortenFormProps) => {
     onSuccess(data: { alias: string }) {
       form.reset();
       addAlias(data.alias);
+    },
+    onError() {
+      toast({
+        title: "Oh, we ran into error!",
+        description:
+          "There was an error in shortening your link, please try again later.",
+        variant: "destructive",
+      });
     },
   });
 
