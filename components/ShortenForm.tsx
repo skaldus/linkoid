@@ -34,7 +34,7 @@ const ShortenForm = ({ csrfToken }: ShortenFormProps) => {
 
   const { mutate: createShortLink, isLoading: isShortening } = useMutation({
     mutationFn: async (payload: ShortenRequest) => {
-      const { data } = await axios.post("/api/shortens", payload, {
+      const { data } = await axios.post("/api/shorten", payload, {
         headers: {
           "X-CSRF-Token": csrfToken,
         },
