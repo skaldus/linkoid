@@ -2,8 +2,6 @@
 
 Linkoid is a simple URL shortener built for fun.
 
-[LIVE DEMO](https://linkoid.eu/)
-
 ## 📜 Features
 
 - Next.js APP router
